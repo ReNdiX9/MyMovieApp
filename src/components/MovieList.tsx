@@ -28,7 +28,7 @@ export default function MovieList() {
   if (error) return <p className="p-4 text-red-600">Error: {error}</p>;
 
   return (
-    <section className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+    <section className="grid gap-6  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 px-2">
       {movies.map((movie) => (
         <MovieCard key={movie.id} {...movie} />
       ))}

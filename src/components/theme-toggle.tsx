@@ -10,7 +10,7 @@ export function ThemeToggle() {
     <button
       onClick={() => setTheme(isLight ? "dark" : "light")}
       className={`p-2 rounded-md transition-transform duration-500 cursor-pointer ${
-        isLight ? "rotate-0" : "rotate-180"
+        isLight ? "rotate-0" : "rotate-360"
       }`}
       aria-label="Toggle theme"
     >

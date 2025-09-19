@@ -2,8 +2,9 @@ export type Movie = {
   id: string;
   adult?: boolean;
   original_language?: string;
+  genre_ids?: number[];
   original_title?: string;
-  overview: string;
+  overview?: string;
   popularity: number;
   poster_path: string;
   release_date: Date;
