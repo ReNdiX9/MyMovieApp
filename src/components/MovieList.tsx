@@ -14,7 +14,6 @@ export default function MovieList() {
 
   const filteredMovies = useMemo(() => {
     if (!query.trim()) return movies;
-
     return movies.filter((m) => m.title.toLowerCase().includes(query.toLocaleLowerCase()));
   }, [movies, query]);
 
@@ -24,19 +23,20 @@ export default function MovieList() {
         const res = await fetch("https://api.themoviedb.org/3/movie/popular?api_key=2f06df6daf4f704fffa29a95cf1f8393");
         const data = await res.json();
         setMovies(data.results);
+        console.log("Movies set to store:", data.results);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
+        console.error("Failed to fetch movies for store:", error);
         setError(error.message ?? "Failed to fetch");
       } finally {
         setLoading(false);
       }
     };
-
     fetchMovies();
   }, [setMovies]);
 
-  if (loading) return <p className="p-4">Loading movies…</p>;
-  if (error) return <p className="p-4 text-red-600">Error: {error}</p>;
+  if (loading) return <p className="p-4 text-center text-2xl">Loading movies…</p>;
+  if (error) return <p className="p-4 text-red-600 text-center text-2xl">Error: {error}</p>;
 
   if (filteredMovies.length === 0 && query.trim()) {
     return (
