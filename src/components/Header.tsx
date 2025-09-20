@@ -7,7 +7,7 @@ import { useSearchStore } from "@/store/store";
 export default function Header() {
   const ref = useRef<HTMLInputElement>(null);
   const [search, setSearch] = useState("");
-  const debouncedSearchTerm = useDebounce(search, 400);
+  const debouncedSearchTerm = useDebounce(search, 500);
   const setQuery = useSearchStore((s) => s.setQuery);
   // const query = useSearchStore((s) => s.query);
 
