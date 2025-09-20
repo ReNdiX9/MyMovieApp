@@ -1,12 +1,18 @@
+<<<<<<< HEAD
 import { useEffect, useMemo, useState } from "react";
 
+=======
+import { useEffect, useState } from "react";
+import { type Movie } from "@/lib/types";
+>>>>>>> parent of 70ce7e4 (Set movies tos store)
 import MovieCard from "./MovieCard";
-import { useSearchStore } from "@/store/store";
 
 export default function MovieList() {
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+<<<<<<< HEAD
   //store variables
   const movies = useSearchStore((s) => s.movies);
   const setMovies = useSearchStore((s) => s.setMovies);
@@ -18,6 +24,8 @@ export default function MovieList() {
     return movies.filter((m) => m.title.toLowerCase().includes(query.toLocaleLowerCase()));
   }, [movies, query]);
 
+=======
+>>>>>>> parent of 70ce7e4 (Set movies tos store)
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -31,11 +39,12 @@ export default function MovieList() {
         setLoading(false);
       }
     };
+
     fetchMovies();
   }, [setMovies]);
 
-  if (loading) return <p className="p-4 text-center text-2xl">Loading movies…</p>;
-  if (error) return <p className="p-4 text-red-600 text-center text-2xl">Error: {error}</p>;
+  if (loading) return <p className="p-4">Loading movies…</p>;
+  if (error) return <p className="p-4 text-red-600">Error: {error}</p>;
 
   if (filteredMovies.length === 0 && query.trim()) {
     return (

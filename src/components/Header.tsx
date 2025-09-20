@@ -9,17 +9,17 @@ export default function Header() {
   const [search, setSearch] = useState("");
   const debouncedSearchTerm = useDebounce(search, 500);
   const setQuery = useSearchStore((s) => s.setQuery);
-  // const query = useSearchStore((s) => s.query);
+  const query = useSearchStore((s) => s.query);
 
   useEffect(() => {
     setQuery(debouncedSearchTerm.trim());
     console.log("Fetching data for:", debouncedSearchTerm);
-  }, [debouncedSearchTerm]);
+  }, [debouncedSearchTerm, setQuery]);
 
   // Debugging: Log when the store's query changes
-  // useEffect(() => {
-  //   console.log("store query changed:", query);
-  // }, [query]);
+  useEffect(() => {
+    console.log("store query changed:", query);
+  }, [query]);
 
   return (
     <header
