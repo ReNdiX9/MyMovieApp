@@ -43,3 +43,16 @@ export const Genres = {
 export type GenreCode = (typeof Genres)[keyof typeof Genres];
 
 export type GenreName = keyof typeof Genres;
+
+export const Language = {
+  zh: "Chinese",
+  en: "English",
+  fr: "French",
+  es: "Spanish",
+  ja: "Japanese",
+  hi: "Hindi",
+  ko: "Korean",
+  it: "Italic",
+} as const;
+
+export type Language = (typeof Language)[keyof typeof Language];
