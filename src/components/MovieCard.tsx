@@ -1,5 +1,8 @@
 import type { Movie } from "@/lib/types";
+import { useSearchStore } from "@/store/store";
 import Rating from "@mui/material/Rating";
+import { HeartPlus, HeartMinus } from "lucide-react";
+import { useState } from "react";
 
 const IMG = "https://image.tmdb.org/t/p/w342";
 
@@ -32,12 +35,31 @@ function popularityLabel(popularity: number): number | string {
   return "Low";
 }
 
-export default function MovieCard({ popularity, poster_path, release_date, title, vote_average, vote_count }: Movie) {
+export default function MovieCard(movie: Movie) {
+  const { id, title, poster_path, popularity, release_date, vote_average, vote_count } = movie;
   const posterUrl = `${IMG}${poster_path}`;
 
+  const [hovered, setHovered] = useState(false);
+  const toggleFavorite = useSearchStore((s) => s.toggleFavorite);
+  const isFav = useSearchStore((s) => !!s.favoriteById[Number(id)]);
+
   return (
-    <div className="border rounded-lg shadow-lg hover:opacity-85 transition hover:border-accent-foreground cursor-pointer ">
+    <div
+      className="border rounded-lg shadow-lg hover:opacity-85 transition hover:border-accent-foreground cursor-pointer  relative"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       <img src={posterUrl} alt={title} className="h-80 w-full object-cover rounded-lg" loading="lazy" />
+      <button
+        aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
+        className={`absolute top-3 right-3  ${hovered ? "flex" : "hidden"} cursor-pointer`}
+        onClick={(e) => {
+          e.stopPropagation();
+          toggleFavorite(movie);
+        }}
+      >
+        {isFav ? <HeartMinus className="h-6 w-6 fill-red-500  text-red-700" /> : <HeartPlus className="h-6 w-6 " />}
+      </button>
       <div className="px-3 py-1.5 ">
         <h1 className="text-lg font-bold text-center">{shortenTitle(title)}</h1>
         <p className="font-medium">
@@ -54,10 +76,10 @@ export default function MovieCard({ popularity, poster_path, release_date, title
             readOnly
             sx={{
               "& .MuiRating-iconFilled": {
-                color: "#facc15", // Tailwind yellow-400
+                color: "#facc15",
               },
               "& .MuiRating-iconEmpty": {
-                color: "#444", // darker gray for empty stars
+                color: "#444",
               },
             }}
           />

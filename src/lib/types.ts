@@ -1,3 +1,4 @@
+//type for Movie
 export type Movie = {
   id: string;
   adult?: boolean;
@@ -12,3 +13,6 @@ export type Movie = {
   vote_average: number;
   vote_count: number;
 };
+
+//Tabs type
+export type CurrentMoviesCategories = "popular" | "top_rated" | "upcoming";
