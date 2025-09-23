@@ -15,7 +15,6 @@ type State = {
   // favorites: normalized by id -> Movie
   favoriteById: Record<number, Movie>;
   toggleFavorite: (movie: Movie) => void;
-  removeFavorite: (id: number) => void;
   clearFavorites: () => void;
 };
 
@@ -35,19 +34,15 @@ export const useSearchStore = create<State>()(
         if (map[movieId]) {
           delete map[movieId];
         } else {
-          map[movieId] = movie; // store FULL movie
+          map[movieId] = movie;
         }
         set({ favoriteById: map });
       },
-      removeFavorite: (id) => {
-        const map = { ...get().favoriteById };
-        delete map[id];
-        set({ favoriteById: map });
-      },
+
       clearFavorites: () => set({ favoriteById: {} }),
     }),
     {
-      name: "search-storage",
+      name: "Movie storage",
     }
   )
 );

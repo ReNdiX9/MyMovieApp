@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 import MovieCard from "./MovieCard";
 import { useSearchStore } from "@/store/store";
 
+const API_KEY = "2f06df6daf4f704fffa29a95cf1f8393";
+
 export default function MovieList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,13 +23,10 @@ export default function MovieList() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const res = await fetch(
-          `https://api.themoviedb.org/3/movie/${category}?api_key=2f06df6daf4f704fffa29a95cf1f8393`
-        );
+        const res = await fetch(`https://api.themoviedb.org/3/movie/${category}?api_key=${API_KEY}`);
         const data = await res.json();
         setMovies(data.results);
-        console.log("Movies set to store:", data.results);
-        console.log("Curr category:", category);
+        console.log("Current Store Movies:", movies);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         console.error("Failed to fetch movies for store:", error);
