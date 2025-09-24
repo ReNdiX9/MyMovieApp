@@ -15,7 +15,7 @@ export default function MovieDetail() {
       <p>{movie?.title}</p>
       <p>{movie?.original_title || "N/A"}</p>
       <p>{movie?.original_language}</p>
-      <p></p>
+      <p>{movie?.popularity}</p>
     </>
   );
 }
