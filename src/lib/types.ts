@@ -3,7 +3,9 @@ export type Movie = {
   id: number;
   adult?: boolean;
   original_language?: string;
-  genre?: GenreCode[];
+  genre_ids?: number[];
+  genres?: { id: number; name: string }[];
+  genre?: number[];
   original_title?: string;
   overview?: string;
   popularity: number;
@@ -41,7 +43,6 @@ export const Genres = {
 } as const;
 
 export type GenreCode = (typeof Genres)[keyof typeof Genres];
-
 export type GenreName = keyof typeof Genres;
 
 export const Language = {
@@ -52,7 +53,14 @@ export const Language = {
   ja: "Japanese",
   hi: "Hindi",
   ko: "Korean",
-  it: "Italic",
+  it: "Italian",
 } as const;
 
-export type Language = (typeof Language)[keyof typeof Language];
+export type LanguageLabel = (typeof Language)[keyof typeof Language];
+export type LanguageCode = keyof typeof Language;
+
+export type Props = {
+  movieId: number;
+  title: string;
+  className: string;
+};
